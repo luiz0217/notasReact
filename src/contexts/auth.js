@@ -4,9 +4,9 @@ import {createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from 
 import {doc,getDoc,setDoc} from 'firebase/firestore'
 
 import { useNavigate } from "react-router-dom";
-import { Toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-export const authContext = createContext({});
+export const AuthContext = createContext({});
 
 function AuthProvider({ children }){
     const [user, setUser] = useState(null)

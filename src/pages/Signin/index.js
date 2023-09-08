@@ -1,6 +1,7 @@
 import { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth"
+import '../../index.css';
 
 export default function Signin() {
     const [Email, setEmail] = useState("");
@@ -11,8 +12,8 @@ export default function Signin() {
     async function handleSignIn(e) {
         e.preventDefault();
 
-        if (Email !== '' && password !== '') {
-            await signIn(Email,password);
+        if (Email !== '' && Password !== '') {
+            await signIn(Email,Password);
         }
     }
 
@@ -20,14 +21,19 @@ export default function Signin() {
       <div>
         <form onSubmit={handleSignIn}>
           <h1>Entrar</h1>
+          <p>E-mail</p>
           <input type="text" value={Email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <p>Senha</p>
+          <input type="password" value={Password} onChange={(e) => setPassword(e.target.value)} />
+          <br/>
           <button type="submit">
             {loadingAuth ? "Carregando..." : "Acessar"}
           </button>
+          <br/>
+          <Link to="/registrar"> Criar uma conta</Link>
         </form>
-
-        <Link to="/registrar"> Criar uma conta</Link>
+        
+        
       </div>
     )
 }
