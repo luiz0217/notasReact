@@ -4,29 +4,34 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth";
 
 export default function SignUp(){
-    const [name , setNome] = useState('');
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
-
-    const {signUp,loadingAuth } = useContext(AuthContext);
-
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+  
+    const { signUp, loadingAuth } = useContext(AuthContext);
+  
     async function handleSubmit(e){
-        e.preventDefaut();
-
-        if(name !== '' && Email !== '' && Password !== ''){
-            await signUp(Email,Password,name)
-        }
+      e.preventDefault();
+  
+      if(name !== '' && email !== '' && password !== ''){
+       await signUp(email, password, name)
+      }
+  
     }
 
     return(
         <div>
             <form onSubmit={handleSubmit}>
                 <h1>Nova Conta</h1>
-                <input type="text" value={name} onChange={(e) => setNome(e.target.value)} />
-                <input type="text" value={Email} onChange={(e) => setEmail(e.target.value)} />
-                <input type="password" value={Password} onChange={(e) => setPassword} />
+                <p>Nome</p>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <p>E-mail</p>
+                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <p>Senha</p>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <br/>
                 <button type="submit">
-                    {loadingAuth ? 'Carregando...' : 'cadastrar'}
+                    {loadingAuth ? 'Carregando...' : 'Cadastrar'}
                 </button>
             </form>
     

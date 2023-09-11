@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: lightblue;
+  text-align: center;
   
 }
 
@@ -21,7 +22,7 @@ code {
 h1 {
   text-align: center;
   background-color: lightseagreen;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 0px 5px 5px 5px;
   border-style: initial;
 }
 
@@ -32,6 +33,7 @@ p {
   border-style: initial;
   margin-left: 50px;
   margin-right: 50px;
+  font-size: medium;
 }
 
 div{
@@ -39,7 +41,6 @@ div{
 }
 
 button{
-  margin-left: 60px;
   justify-content: center;
   text-align: center;
   background-color: lightgreen;
