@@ -14,26 +14,26 @@ export default function Notas() {
     const [loading, setLoading] = useState(true);
 
     const [isEmpty, setIsEmpty] = useState(false)
-  const [lastDocs, setLastDocs] = useState()
+    const [lastDocs, setLastDocs] = useState()
 
     useEffect(() => {
         async function loadNotes() {
             setLoading(true)
             onSnapshot(collection(db, "notas"), (snapshot) => {
-              const listNotes = []
-              snapshot.forEach((doc) => {
-                listNotes.push({
-                  id: doc.id,
-                  titulo: doc.data().titulo,
-                  conteudo: doc.data().conteudo
+                const listNotes = []
+                snapshot.forEach((doc) => {
+                    listNotes.push({
+                        id: doc.id,
+                        titulo: doc.data().titulo,
+                        conteudo: doc.data().conteudo
+                    })
                 })
-              })
-              setNotas(listNotes)
-              setLoading(false)
+                setNotas(listNotes)
+                setLoading(false)
             })
-          }
+        }
 
-          loadNotes();
+        loadNotes();
 
         return () => { }
     }, [])
@@ -54,48 +54,48 @@ export default function Notas() {
 
             const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
 
-            setNotas(notas => [...notas,...lista])
+            setNotas(notas => [...notas, ...lista])
             setLastDocs(lastDoc);
 
         }
-        else{
+        else {
             setIsEmpty(true);
         }
 
-        
+
     }
-    if(loading){
-        return(
+    if (loading) {
+        return (
             <div>
                 Buscando notas...
             </div>
         )
     }
 
-    return(
+    return (
         <div>
             <Link to={"/CriarNota"}>Nova nota</Link>
             <>
-            {notas.length === 0 ? (
-                <div>
-                    Nenhuma nota encontrado
-                </div>
-            ) : (
-            <table>
-                <tbody>
-                    {notas.map((item,index)=>{
-                        return(
-                            <tr key={index}>
-                                <td data-label="Titulo">{item.titulo}</td>
-                                <td data-label="Conteudo">{item.conteudo}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-            )}
+                {notas.length === 0 ? (
+                    <div>
+                        Nenhuma nota encontrado
+                    </div>
+                ) : (
+                    <table>
+                        <tbody>
+                            {notas.map((item, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td data-label="Titulo">{item.titulo}</td>
+                                        <a href={"editar?id="+item.id}>Vizualizar</a>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                )}
             </>
-        </div>
+        </div >
     )
 
 }
