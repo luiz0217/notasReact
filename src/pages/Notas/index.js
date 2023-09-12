@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 
 import { Link } from "react-router-dom";
-import { collection, getDocs, orderBy, limit, startAfter, query } from 'firebase/firestore'
+import { collection, getDocs, orderBy, limit, startAfter, quer, onSnapshot } from 'firebase/firestore'
 import { db } from "../../firebaseConnection";
 
 const listRef = collection(db, "notas");
@@ -17,18 +17,23 @@ export default function Notas() {
   const [lastDocs, setLastDocs] = useState()
 
     useEffect(() => {
-        async function loadChamados() {
-            const q = query(listRef);
+        async function loadNotes() {
+            setLoading(true)
+            onSnapshot(collection(db, "notas"), (snapshot) => {
+              const listNotes = []
+              snapshot.forEach((doc) => {
+                listNotes.push({
+                  id: doc.id,
+                  titulo: doc.data().titulo,
+                  conteudo: doc.data().conteudo
+                })
+              })
+              setNotas(listNotes)
+              setLoading(false)
+            })
+          }
 
-            const querySnapshot = await getDocs(q);
-            setNotas([]);
-
-            await updateState(querySnapshot);
-
-            setLoading(false);
-        }
-
-        loadChamados();
+          loadNotes();
 
         return () => { }
     }, [])
