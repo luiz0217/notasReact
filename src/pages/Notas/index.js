@@ -74,11 +74,11 @@ export default function Notas() {
 
     return (
         <div>
-            <Link to={"/CriarNota"}>Nova nota</Link>
+            <Link to={"/CriarNota"}><h1>Nova nota</h1></Link>
             <>
                 {notas.length === 0 ? (
                     <div>
-                        Nenhuma nota encontrado
+                        Nenhuma nota encontrada... Tente criar uma!
                     </div>
                 ) : (
                     <table>
@@ -87,7 +87,7 @@ export default function Notas() {
                                 return (
                                     <tr key={index}>
                                         <td data-label="Titulo">{item.titulo}</td>
-                                        <a href={"editar?id="+item.id}>Vizualizar</a>
+                                        <a href={"editar?id="+item.id}><p>Visualizar</p></a>
                                     </tr>
                                 )
                             })}

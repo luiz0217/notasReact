@@ -12,13 +12,13 @@ export default function EditarNota() {
 
     const queryParameters = new URLSearchParams(window.location.search)
     const Id = queryParameters.get("id")
-
+    console.log(Id);
 
 
     const [conteudo, setConteudo] = useState('');
     const [titulo, setTitulo] = useState('');
 
-    const [notas, setNotas] = useState(null);
+    //const [notas, setNotas] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,11 +28,9 @@ export default function EditarNota() {
             onSnapshot(docRef, (snapshot) => {
                 if (snapshot.exists()) {
                     const noteData = snapshot.data();
-                    setNotas({
-                        id: snapshot.id,
-                        titulo: noteData.titulo,
-                        conteudo: noteData.conteudo,
-                        });
+                    setTitulo(noteData.titulo);
+                    setConteudo(noteData.conteudo);
+
                     setLoading(false);
                 } else {
                     // Handle the case where the document does not exist
@@ -47,10 +45,10 @@ export default function EditarNota() {
     }, [])
 
 
-    async function editarNota(id) {
-        if (notas !== null){
-            const docRef = doc(db, "notas", id);
-    
+    async function editarNota(id,e) {
+            e.preventDefault();
+            const docRef = doc(db, "notas",id);
+            
             await updateDoc(docRef, {
                 titulo: titulo,
                 conteudo: conteudo,
@@ -63,25 +61,30 @@ export default function EditarNota() {
                 .catch((error) => {
                     console.log(error);
                 });
-        }
+        
 
     }
 
 
     return (
         <div>
-            <form onSubmit={() => editarNota(notas.id)}>
+            <form>
+
+                <h1>Titulo</h1>
                 <input
                     type="text"
                     value={titulo}
                     onChange={(e) => setTitulo(e.target.value)}
                 />
+                <h1>Conteúdo</h1>
                 <input
                     type="text"
                     value={conteudo}
                     onChange={(e) => setConteudo(e.target.value)}
                 />
-                <button type="submit">Editar</button>
+                <br />
+                <button onClick={(e) => editarNota(Id,e)}>Editar</button>
+
             </form>
 
             <Link to="/dashboard">Voltar</Link>

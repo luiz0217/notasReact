@@ -23,21 +23,23 @@ h1 {
   text-align: center;
   background-color: lightseagreen;
   border-radius: 0px 5px 5px 5px;
-  border-style: initial;
+  border-style: ridge;
 }
 
 p {
   text-align: center;
   background-color: lightseagreen;
   border-radius: 5px 5px 5px 5px;
-  border-style: initial;
+  border-style: ridge;
   margin-left: 50px;
   margin-right: 50px;
   font-size: medium;
 }
 
 div{
-  background-color: #0000;
+  border-style: groove;
+  border-radius: 5px 5px 5px 5px;
+  background-color: lightgrey;
 }
 
 button{
